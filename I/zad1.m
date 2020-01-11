@@ -1,5 +1,5 @@
 clear;
-close all;
+% close all;
 
 consts;
 
@@ -11,9 +11,9 @@ u_wer = init_u(n, n_op, umin, umax, u0, shift, seed_wer);
 
 [ustat, ystat] = char_stat(umin, umax, alfa1, alfa2, beta1, beta2);
 
-charStatPlotter(ustat, ystat, 'directory here', 'filename here');
+charStatPlotter(ustat, ystat, 'zad1', 'char_stat');
 
-serialize('II/dane.txt', u_ucz, y_ucz);
-serialize('II/dane_weryfikujace.txt', u_wer, y_wer);
+serialize('../II/dane.txt', u_ucz, y_ucz);
+serialize('../II/dane_weryfikujace.txt', u_wer, y_wer);
 
-dataPlotter(u_ucz, y_ucz, u_wer, y_wer, 'directory here', 'filename here');
+dataPlotter(u_ucz, y_ucz, u_wer, y_wer, 'zad2', 'dane');

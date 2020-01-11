@@ -7,8 +7,10 @@ x2_0 = 0;
 y0 = 0;
 u0 = 0;
 shift = 25; %okres zmian sterowania
-seed_ucz = 50;
-seed_wer = 27;
+% shift = 10;
+% seed_ucz = 50;
+seed_ucz = 2;
+seed_wer = 3;
 
 alfa1 = -1.272717;
 alfa2 = 0.332871;

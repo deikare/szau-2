@@ -1,15 +1,18 @@
-function modelsPlotter(y_ucz, y_ucz_siec, y_wer, y_wer_siec, dirname, filename)
+function modelsPlotter(y_ucz, y_ucz_siec, y_wer, y_wer_siec, dirname, filename, additional_title)
     fig = figure;
+%     fig.WindowState = 'maximized';
+
     tiledlayout(2,1);
 
     nexttile;
     stairs(1:length(y_ucz), y_ucz);
     hold on;
     stairs(1:length(y_ucz_siec), y_ucz_siec);
-    title('dane uczace');
-    xlabel('t');
+%     title(['dane uczace, K = ', num2str(K)]);
+    title(['dane uczace', additional_title]);
+    xlabel('k');
     ylabel('y');
-    legend('model', 'model neuronowy', 'Location', 'southeast');
+    legend('dane', 'model', 'Location', 'southeast');
     hold off;
 
     nexttile;
@@ -17,9 +20,11 @@ function modelsPlotter(y_ucz, y_ucz_siec, y_wer, y_wer_siec, dirname, filename)
     hold on;
     stairs(1:length(y_wer_siec), y_wer_siec);
     title('dane weryfikujace');
-    xlabel('t');
+    xlabel('k');
     ylabel('y');
-    legend('model', 'model neuronowy', 'Location', 'southeast');
+    legend('dane', 'model', 'Location', 'southeast');
     hold off;
+    
+    print(fig, ['wykresy/', dirname, '/', filename], '-dsvg');
 end
 

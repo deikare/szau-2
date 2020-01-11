@@ -1,7 +1,7 @@
 function dataPlotter(u_ucz, y_ucz, u_wer, y_wer, directory, filename) 
 %%funkcja wyświetlająca podział na zbiory uczący i weryfikujący oraz
 %%zapisująca ten wykres do pliku
-    figure;
+    fig = figure;
     tiledlayout(2,1);
 
     nexttile;
@@ -23,5 +23,7 @@ function dataPlotter(u_ucz, y_ucz, u_wer, y_wer, directory, filename)
     ylabel('u/y');
     legend('u', 'y', 'Location', 'southeast');
     hold off;
+    
+    print(fig, ['wykresy/', directory, '/', filename], '-dsvg');
 end
 

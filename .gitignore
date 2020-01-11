@@ -3,4 +3,9 @@
 !*.m
 !.gitignore
 
-!II/
+!II
+!I
+!IV
+!II/wykresy
+!I/wykresy
+!IV/wykresy

@@ -17,7 +17,7 @@ function container = uczenieZad2(u_ucz, y_ucz, u_wer, y_wer, settings_filename, 
             if isunix
                 system('wine sieci.exe');
             elseif ispc
-                system('start sieci.exe');
+                system('start /wait sieci.exe');
             end
 
             save('temp_storage.mat');
