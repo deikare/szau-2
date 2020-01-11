@@ -4,6 +4,8 @@
 !.gitignore
 
 !II
+!II/dane*
+!II/zad*.mat
 !I
 !IV
 !II/wykresy
