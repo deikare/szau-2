@@ -78,5 +78,8 @@ function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
         u(k) = min(u(k), umax);
         u(k) = max(u(k), umin);
     end
+    
+    y = y(1:n);
+    u = u(1:n);
 end
 

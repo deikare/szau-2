@@ -2,11 +2,16 @@ clear;
 consts;
 i = 1;
 shift = 200;
-% Yzad = zeros(1, n);
-while i < n
-    Yzad(i:i+shift) = -1.6 + 1.8 * rand();
-    i = i + shift + 1;
-end
+n = 1600;
+Yzad = zeros(1, n);
+Yzad(1:n) = 0.15;
+Yzad(200:n) = -0.8;
+Yzad(400:n) = -0.05;
+Yzad(600:n) = -1.4;
+Yzad(800:n) = 0.1;
+Yzad(1000:n) = -0.7;
+Yzad(1200:n) = 0.18;
+Yzad(1400:n) = -0.3;
 
 kKryt = 18;
 TKryt = 12;
@@ -22,3 +27,4 @@ stairs(1 : length(Yzad), Yzad, '--');
 
 nexttile;
 stairs(1 : length(U), U);
+ylim([umin umax]);

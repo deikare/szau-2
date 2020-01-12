@@ -88,20 +88,7 @@ function [y, u] = NPL(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
         u(k) = min(u(k), umax);
         u(k) = max(u(k), umin);
     end
-    % 
-    % figure;
-    % subplot(2,1,1)
-    % plot(u(1:n))
-    % hold on
-    % xlabel('k')
-    % ylabel('u(k)')
-    % subplot(2,1,2)
-    % plot(y(1:n))
-    % xlabel('k')
-    % ylabel('y(k)')
-    % hold on
-    % plot(yzad)
-    % legend('y','yzad')
-
+    y = y(1:n);
+    u = u(1:n);
 end
 

@@ -1,4 +1,4 @@
-n = 1000; %liczba probek
+n = 1600; %liczba probek
 n_op = 5; %%numer opoznienia;
 umin = -1;
 umax = 1;
@@ -9,8 +9,9 @@ u0 = 0;
 shift = 25; %okres zmian sterowania
 % shift = 10;
 % seed_ucz = 50;
-seed_ucz = 2;
-seed_wer = 3;
+% seed_ucz = 2;
+% seed_wer = 3;
+seed = 3;
 
 alfa1 = -1.272717;
 alfa2 = 0.332871;
