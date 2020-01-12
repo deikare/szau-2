@@ -1,12 +1,5 @@
 function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
-%     clear variables
-    % model;         %trzebe tu wstawi� nasz model
     load('model.mat');
-
-%     alpha1 = -1.272717;
-%     alpha2 = 0.332871;
-%     beta1 = 0.028400;
-%     beta2 = 0.019723;
 
     na = 2;
     nb = 6;
@@ -23,8 +16,6 @@ function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
 
     u = zeros(n+N,1);
     du = zeros(n+N,1);
-%     umin = -1;
-%     umax = 1;
 
     x1 = zeros(n,1);
     x2 = zeros(n,1);
@@ -32,11 +23,6 @@ function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
     y = zeros(n+N,1);
     ym = zeros(n,1);
     y0 = zeros(N,1);
-    yzad = zeros(n,1);
-    yzad(50:n,1) = -0.3;
-    yzad(250:n,1) = 0.1;
-    yzad(500:n,1) = -1.1;
-    yzad(750:n,1) = -0.5;
 
     % load('daneucz');     %trzeba tu za�adowa� nasze dane ucz�ce
     dane_ucz = readmatrix('dane.txt');
@@ -80,18 +66,9 @@ function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
         x2(k) = -alpha2*x1(k-1)+beta2*g1(u(k-5));
         y(k)= g2(x1(k));
 
-        a = zeros(na,1);
-        b = zeros(nb,1);
-        b(5) = (funkcja([u(k-tau)+delta u(k-tau-1) y(k-1) y(k-2)]')-funkcja([u(k-tau) u(k-tau-1) y(k-1) y(k-2)]'))/delta;
-        b(6) = (funkcja([u(k-tau) u(k-tau-1)+delta y(k-1) y(k-2)]')-funkcja([u(k-tau) u(k-tau-1) y(k-1) y(k-2)]'))/delta;
-        a(1) = -(funkcja([u(k-tau) u(k-tau-1) y(k-1)+delta y(k-2)]')-funkcja([u(k-tau) u(k-tau-1) y(k-1) y(k-2)]'))/delta;
-        a(2) = -(funkcja([u(k-tau) u(k-tau-1) y(k-1) y(k-2)+delta]')-funkcja([u(k-tau) u(k-tau-1) y(k-1) y(k-2)]'))/delta;
-        
-        %%zdebuggowalem
-%         ym(k) = b(3)*u(k-5)+b(4)*u(k-6)-a(1)*y(k-1)-a(2)*y(k-2);
         ym(k) = b(5)*u(k-5)+b(6)*u(k-6)-a(1)*y(k-1)-a(2)*y(k-2);
         dk = y(k)-ym(k);
-%         dk = 0;
+
         for p = 1:N
             y(k+p) = b(5)*u(min(k-tau+p,k-1)) + b(6)*u(min(k-tau-1+p,k-1)) - a(1)*y(k-1+p) - a(2)*y(k-2+p) + dk;
         end
@@ -100,25 +77,6 @@ function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
         u(k) = u(k-1) + du(k);
         u(k) = min(u(k), umax);
         u(k) = max(u(k), umin);
-        disp(a);
-        disp(b);
-        1;
     end
-
-%     E = (yzad-y(1:n))'*(yzad-y(1:n));
-%     % figure
-%     subplot(2,1,1)
-%     plot(u(1:n))
-%     hold on
-%     xlabel('k')
-%     ylabel('u(k)')
-%     subplot(2,1,2)
-%     plot(y(1:n))
-%     xlabel('k')
-%     ylabel('y(k)')
-%     hold on
-%     plot(yzad)
-%     title('E ='+string(E));
-%     legend('y','yzad')
 end
 

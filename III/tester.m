@@ -3,7 +3,7 @@ close all;
 consts;
 i = 1;
 shift = 200;
-% Yzad = zeros(1, n);
+Yzad = zeros(1, n);
 while i < n
     Yzad(i:i+shift) = -1.6 + 1.8 * rand();
     i = i + shift + 1;
