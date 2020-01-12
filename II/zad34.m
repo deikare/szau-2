@@ -64,3 +64,10 @@ ifYeqX_Plotter(y_wer, y_wer_siec, 'zad4', ['porownanie_wer_K=', num2str(best_neu
 errorsTable = struct2table(errors_container_OE);
 sortedTable = sortrows(errorsTable, 'error_wer');
 errors_container_OE = table2struct(sortedTable);
+
+w1 = best_neural_model.wagi.w1;
+w10 = best_neural_model.wagi.w10;
+w2 = best_neural_model.wagi.w2;
+w20 = best_neural_model.wagi.w20;
+
+save('../III/model.mat', 'w1', 'w10', 'w2', 'w20');
