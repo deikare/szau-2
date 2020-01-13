@@ -8,6 +8,10 @@
 !II/zad*.mat
 !I
 !III
+!III/*.mat
+!III/dane*
+!IV/*.mat
+!IV/dane.*
 !IV
 !II/wykresy
 !I/wykresy
