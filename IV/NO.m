@@ -1,5 +1,5 @@
 function [y, u] = NO(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
-% clear variables
+% regulator NO
     global w2 w1 w20 w10
 % model;
     load('model.mat');
@@ -48,7 +48,7 @@ function [y, u] = NO(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
     dane_ucz = readmatrix('dane.txt');
     x_ucz = dane_ucz(:, 1)';
     y_ucz = dane_ucz(:, 2)';
-
+%%wspolczynniki modelu zlinearyzowanego
     a = zeros(na,1);
     b = zeros(nb,1);
     b(5) = (funkcja([x_ucz(2)+delta x_ucz(2) y_ucz(6) y_ucz(5)]')-funkcja([x_ucz(2) x_ucz(1) y_ucz(6) y_ucz(5)]'))/delta;
@@ -56,7 +56,7 @@ function [y, u] = NO(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
     a(1) = -(funkcja([x_ucz(2) x_ucz(2) y_ucz(6)+delta y_ucz(5)]')-funkcja([x_ucz(2) x_ucz(1) y_ucz(6) y_ucz(5)]'))/delta;
     a(2) = -(funkcja([x_ucz(2) x_ucz(2) y_ucz(6) y_ucz(5)+delta]')-funkcja([x_ucz(2) x_ucz(1) y_ucz(6) y_ucz(5)]'))/delta;
 
-
+%%wspolczynniki odpowiedzi skokowej
     for j=1:N
         s(j) = 0;
         for i = 1:min(j,nb)
@@ -66,7 +66,7 @@ function [y, u] = NO(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
             s(j) = s(j) - a(i)*s(j-i);
         end
     end 
-
+%%obliczenie macierzy M
     for i = 1 : N
         for j = 1 : Nu
             if (i-j+1)>0
@@ -74,44 +74,42 @@ function [y, u] = NO(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
             end
         end
     end
-
-    K = (M'*M + lambda*eye(Nu,Nu))^-1*M';
     
     Umin_w = zeros(Nu, 1);
     Umax_w = zeros(Nu, 1);
-
+%%prawo regulacji
     for k=tau+2:n
         k
         x1(k) = -alpha1*x1(k-1)+x2(k-1)+beta1*g1(u(k-5));
         x2(k) = -alpha2*x1(k-1)+beta2*g1(u(k-5));
-        y(k)= g2(x1(k));
+        y(k)= g2(x1(k)); %%pomiar
 
         qk = [u(k-5) u(k-6) y(k-1) y(k-2)]';
-        ym(k) = w20 + w2*tanh(w10+w1*qk);
+        ym(k) = w20 + w2*tanh(w10+w1*qk); %%wyjscie modelu
         dk = y(k)-ym(k);
         
-        Umin_w(:) = umin - u(k-1);
+        Umin_w(:) = umin - u(k-1); %%wektor ograniczen sygnalu deltaU
         Umax_w(:) = umax - u(k-1);
         
-        for p = 1:N
+        for p = 1:N %%wektor odpowiedzi swobodnej
             qk = [u(min(k-5+p,k-1)) u(min(k-6+p,k-1)) y(k-1+p) y(k-2+p)]';
             y(k+p) = w20 + w2*tanh(w10+w1*qk) + dk;
             yO(p) = y(k+p);
         end
-        
+        %%przygotowanie parametrow optymalizacji
         Yzad = yzad(k) * ones(N, 1);
         u0 = zeros(Nu, 1) + u(k-1);
         fun = @(x) ((Yzad -yO - M * x)') * (Yzad -yO - M * x) + lambda * (x') * x;
         
-        
+        %%numeryczne wyznaczenie wektora przyrostu sterowan
         du(k:k+Nu-1) = fmincon(fun, u0, [0 0], 0, [0 0], 0, Umin_w, Umax_w);
         
-
-%         du(k:k+Nu-1) = K*(yzad(k)*ones(N,1)-y(k+1:k+N));
+        %%uzyskanie wektora sterowan
         u(k) = u(k-1) + du(k);
         u(k) = min(u(k), umax);
         u(k) = max(u(k), umin);
     end
+    %%przyciecie wektorow do odpowiedniej dlugosci
     y = y(1:n);
     u = u(1:n);
 end

@@ -5,7 +5,8 @@ close all;
 load('zad2_alg_ucz=2_tr_ucz=2_tr_sym=2_n=400.mat');
 % load('zad2_alg_ucz=2_tr_ucz=2_tr_sym=2_n=200.mat');
 
-
+%kontener na najlepsze bledy wybrane na poziomie kazdego z K
+%%czyli wybrane na poziomie 10 powtornych uczen o danej ilosci K
 errors_container_OE = [];
 
 dane_ucz = readmatrix('dane.txt');
@@ -23,7 +24,9 @@ i = 1;
 for container = containerZad2
     temp_errors_container = [];
     j = 1;
+    %%przeszukuje bledy na poziomie danej wielkosci K
     for value = container.values
+        temp_errors_container(j).index = j;
         temp_errors_container(j).error_ucz = value.errors.error_ucz;
         temp_errors_container(j).error_wer = value.errors.error_wer;
         temp_errors_container(j).wagi = value.wagi;
@@ -31,11 +34,13 @@ for container = containerZad2
         j = j + 1;
     end
     T = struct2table(temp_errors_container);
+    %%sortuje po najmniejszym bledzie weryfikujacym
     sortedT = sortrows(T, 'error_wer');
-
+    writetable(sortedT, ['xlsy/zad2/K=', num2str(i),'.xlsx']);
+    
     sortedStruct = table2struct(sortedT);
     sortedTable = struct2table(sortedStruct);
-
+    %%i ten najmniejszy blad biore do errors_container
     errors_container_OE(i).error_ucz = sortedStruct(1).error_ucz;
     errors_container_OE(i).error_wer = sortedStruct(1).error_wer;
     errors_container_OE(i).wagi = sortedStruct(1).wagi;
@@ -50,7 +55,8 @@ for container = containerZad2
     ifYeqX_Plotter(y_wer, y_wer_siec, 'zad2', ['porownanie_wer_K=', num2str(container.K)], 'weryfikujace', napis);
     i = i + 1;
 end
-
+%%tutaj nalezy wybrac najlepszy model sposrod 10 rodzajow - dostepne
+%%modele dla K = 1 , 2 ,..., 10
 best_neural_model = errors_container_OE(9);
 plotter_from_uczenie_m(best_neural_model.wyjscie_uczenie_m.farx, best_neural_model.wyjscie_uczenie_m.foe, best_neural_model.wyjscie_uczenie_m.krok, best_neural_model.wyjscie_uczenie_m.ng, 'zad3', ['wyniki_K=', num2str(best_neural_model.K)]);
 
@@ -62,9 +68,11 @@ ifYeqX_Plotter(y_ucz, y_ucz_siec, 'zad4', ['porownanie_ucz_K=', num2str(best_neu
 ifYeqX_Plotter(y_wer, y_wer_siec, 'zad4', ['porownanie_wer_K=', num2str(best_neural_model.K)], 'weryfikujace', napis);
 
 errorsTable = struct2table(errors_container_OE);
-sortedTable = sortrows(errorsTable, 'error_wer');
-errors_container_OE = table2struct(sortedTable);
+writetable(errorsTable, 'xlsy/zad3/najlepsze_modele.xlsx');
+% sortedTable = sortrows(errorsTable, 'error_wer');
+% errors_container_OE = table2struct(sortedTable);
 
+%%zapisuje wagi - potrzebne dla segmentow III oraz IV
 w1 = best_neural_model.wagi.w1;
 w10 = best_neural_model.wagi.w10;
 w2 = best_neural_model.wagi.w2;

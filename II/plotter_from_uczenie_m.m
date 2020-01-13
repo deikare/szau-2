@@ -1,6 +1,6 @@
 function plotter_from_uczenie_m(farx, foe, krok, ng, dirname, filename)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%%funkcja stworzona na podstawie wykresow z uczenie.m, wyswietla i zapisuje
+%%dokladnie te same wykresy
     fig = figure; semilogy(farx,'b'); hold on; semilogy(foe,'r'); xlabel('Iteracje'); ylabel('Earx, Eoe'); legend('Earx','Eoe'); title('Uczenie predyktora OE');
     print(fig, ['wykresy/', dirname, '/predyktory_', filename], '-dsvg');
     fig = figure; subplot(2,1,1); semilogy(krok); xlabel('Iteracje'); ylabel('Krok');

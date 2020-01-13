@@ -1,4 +1,5 @@
 function serialize(filepath, u, y)
+%%funkcja tworzaca wektor danych do pliku
     fileID = fopen(filepath, 'w');
     n = length(u);
 

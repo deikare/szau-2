@@ -1,4 +1,9 @@
 function container = uczenieZad2(u_ucz, y_ucz, u_wer, y_wer, settings_filename, nB, tau, nA, n, tol, algorytm_uczacy, tryb_uczenia, ilosc_prob, K_wektor, tryb_symulacji)
+%%funkcja przeprowadzajaca cala procedure uczenia
+%%uczenie wykonuje sie dla K_wektor neuronow, np dla wektora [1 ... 10]
+%%oraz dla kazdej ilosci neuronow ukrytych uczenie wykonuje sie
+%%<ilosc_prob> razy
+%%wyniki zwracane sa w postaci tablicy struktur container
     container = [];
     j = 1;
     

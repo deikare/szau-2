@@ -1,4 +1,5 @@
 function modelsPlotter(y_ucz, y_ucz_siec, y_wer, y_wer_siec, dirname, filename, additional_title)
+%%funkcja drukujaca wyjscie modelu neuronowego vs danych
     fig = figure;
 %     fig.WindowState = 'maximized';
 

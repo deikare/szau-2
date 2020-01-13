@@ -1,3 +1,4 @@
+%%plik zawierajacy stale
 n = 2000; %liczba probek
 n_op = 5; %%numer opoznienia;
 umin = -1;

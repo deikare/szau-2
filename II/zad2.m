@@ -1,3 +1,4 @@
+%%skrypt uczacy modele neuronowe dla zadania 2
 clear;
 close all;
 nB = 5;
@@ -20,6 +21,6 @@ u_wer = dane_wer(:, 1)';
 y_wer = dane_wer(:, 2)';
 
 containerZad2 = uczenieZad2(u_ucz, y_ucz, u_wer, y_wer, 'ustawienia.txt', nB, tau, nA, n, tol, algorytm_uczacy, tryb_uczenia, ilosc_prob, K_wektor, tryb_symulacji);
-
+%%serializacja wyniku uczenia, dalej przetwarzac bedzie skrypt zad34.m
 save(['zad2_alg_ucz=', num2str(algorytm_uczacy), '_tr_ucz=', num2str(tryb_uczenia), '_tr_sym=', num2str(tryb_symulacji), '_n=', num2str(n), '.mat'], 'containerZad2');
 

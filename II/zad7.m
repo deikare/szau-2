@@ -1,5 +1,6 @@
 clear;
 % close all;
+%%analogicznie jak w zad34.m
 % load('zad2_alg_ucz=2_tr_ucz=2_tr_sym=2.mat');
 % load('uczenie_zad2_ARX.mat');
 load('zad6_alg_ucz=2_tr_ucz=1_tr_sym=2_n=200.mat');
@@ -25,6 +26,7 @@ for container = containerZad6
     temp_errors_container = [];
     j = 1;
     for value = container.values
+        temp_errors_container(j).index = j;
         temp_errors_container(j).error_ucz = value.errors.error_ucz;
         temp_errors_container(j).error_wer = value.errors.error_wer;
         temp_errors_container(j).wagi = value.wagi;
@@ -33,6 +35,7 @@ for container = containerZad6
     end
     T = struct2table(temp_errors_container);
     sortedT = sortrows(T, 'error_wer');
+    writetable(sortedT, ['xlsy/zad6/K=', num2str(i),'.xlsx']);
 
     sortedStruct = table2struct(sortedT);
     sortedTable = struct2table(sortedStruct);
@@ -66,5 +69,6 @@ ifYeqX_Plotter(y_ucz, y_ucz_siec, 'zad7', ['porownanie_ucz_K=', num2str(best_neu
 ifYeqX_Plotter(y_wer, y_wer_siec, 'zad7', ['porownanie_wer_K=', num2str(best_neural_model.K)], 'weryfikujace', napis);
 
 errorsTable = struct2table(errors_container_OE);
+writetable(errorsTable, 'xlsy/zad6/najlepsze_modele.xlsx');
 sortedTable = sortrows(errorsTable, 'error_wer');
 errors_container_OE = table2struct(sortedTable);

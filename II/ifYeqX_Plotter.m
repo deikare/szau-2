@@ -1,4 +1,7 @@
 function [outputArg1,outputArg2] = ifYeqX_Plotter(y, y_neuron, dirname, filename, figtitle, additional_title)
+%%funkcja drukujaca porownanie wyjscia modelu z danymi i zapisujaca ten
+%%wykres do pliku
+
     [y_sorted, sort_dir] = sort(y);
     y_neuron = y_neuron(sort_dir);
     

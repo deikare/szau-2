@@ -1,5 +1,6 @@
 clear;
 close all;
+%%analogicznie jak w zad34.m
 % load('zad2_alg_ucz=2_tr_ucz=2_tr_sym=2.mat');
 % load('uczenie_zad2_ARX.mat');
 load('zad5_alg_ucz=1_tr_ucz=2_tr_sym=2_n=400.mat');
@@ -24,6 +25,7 @@ for container = containerZad5
     temp_errors_container = [];
     j = 1;
     for value = container.values
+        temp_errors_container(j).index = j;
         temp_errors_container(j).error_ucz = value.errors.error_ucz;
         temp_errors_container(j).error_wer = value.errors.error_wer;
         temp_errors_container(j).wagi = value.wagi;
@@ -31,7 +33,10 @@ for container = containerZad5
         j = j + 1;
     end
     T = struct2table(temp_errors_container);
+%     writetable(T, 'xlsy/zad5/wszystkie_iteracje.xlsx');
     sortedT = sortrows(T, 'error_wer');
+    writetable(sortedT, 'xlsy/zad5/wszystkie_iteracje.xlsx');
+
 
     sortedStruct = table2struct(sortedT);
     sortedTable = struct2table(sortedStruct);
