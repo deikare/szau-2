@@ -1,6 +1,19 @@
 clear; %%skrypt reprezentujacy dzialanie GPC i NPL
 close all;
 consts;
+
+N_NO = 20;
+Nu_NO = 2;
+lambda_NO = 3;
+
+N_GPC = 20;
+Nu_GPC = 2;
+lambda_GPC = 150;
+
+N_NPL = 20;
+Nu_NPL = 2;
+lambda_NPL = 3;
+
 i = 1;
 shift = 200;
 generator = rng(seed);
@@ -21,9 +34,9 @@ kKryt = 18;
 TKryt = 12;
 [Ypid_kryt, Upid_kryt] = PID(kKryt, 9999999999, 0, 1, 5, Yzad_kryt, alfa1, alfa2, beta1, beta2, umin, umax);
 [Ypid, Upid] = PID(0.6 * kKryt, TKryt / 2, TKryt / 8, 1, 5, Yzad, alfa1, alfa2, beta1, beta2, umin, umax);
-[Ygpc, Ugpc] = GPC(Yzad, alfa1, alfa2, beta1, beta2, umin, umax); 
-[Ynpl, Unpl] = NPL(Yzad, alfa1, alfa2, beta1, beta2, umin, umax); 
-[Yno, Uno] = NO(Yzad, alfa1, alfa2, beta1, beta2, umin, umax);
+[Ygpc, Ugpc] = GPC(Yzad, alfa1, alfa2, beta1, beta2, umin, umax, N_GPC, Nu_GPC, lambda_GPC); 
+[Ynpl, Unpl] = NPL(Yzad, alfa1, alfa2, beta1, beta2, umin, umax, N_NPL, Nu_NPL, lambda_NPL); 
+[Yno, Uno] = NO(Yzad, alfa1, alfa2, beta1, beta2, umin, umax, N_NO, Nu_NO, lambda_NO);
 
 controllerPlotter(Ygpc, Ugpc, Yzad, 'y GPC', 'GPC', 'wykresy\GPC_nastrojone', umin, umax);
 controllerPlotter(Ynpl, Unpl, Yzad, 'y NPL', 'NPL', 'wykresy\NPL_nastrojone', umin, umax);

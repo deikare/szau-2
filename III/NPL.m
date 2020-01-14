@@ -1,4 +1,4 @@
-function [y, u] = NPL(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
+function [y, u] = NPL(yzad, alpha1, alpha2, beta1, beta2, umin, umax, N, Nu, lambda)
 % regulator NPL 
     global w2 w1 w20 w10
 % model;
@@ -15,9 +15,9 @@ function [y, u] = NPL(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
 
     delta = 0.00001;
 
-    N = 20;
-    Nu = 2;
-    lambda = 3;
+%     N = 20;
+%     Nu = 2;
+%     lambda = 3;
 
     n = length(yzad);
 

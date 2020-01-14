@@ -1,4 +1,4 @@
-function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
+function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax, N, Nu, lambda)
 %%regulator GPC
     load('model.mat');
 
@@ -8,9 +8,9 @@ function [y, u] = GPC(yzad, alpha1, alpha2, beta1, beta2, umin, umax)
 
     delta = 0.00001;
 
-    N = 20;
-    Nu = 2;
-    lambda = 150;
+%     N = 20;
+%     Nu = 2;
+%     lambda = 150;
 
     n = length(yzad);
     n0 = 10;
