@@ -57,7 +57,7 @@ end
 
 
 
-best_neural_model = errors_container_OE(7);
+best_neural_model = errors_container_OE(9);
 plotter_from_uczenie_m(best_neural_model.wyjscie_uczenie_m.farx, best_neural_model.wyjscie_uczenie_m.foe, best_neural_model.wyjscie_uczenie_m.krok, best_neural_model.wyjscie_uczenie_m.ng, 'zad6', ['wyniki_K=', num2str(best_neural_model.K)]);
 
 y_ucz_siec = getFuzzyModel(u_ucz, best_neural_model.wagi.w1, best_neural_model.wagi.w10, best_neural_model.wagi.w2, best_neural_model.wagi.w20, tryb_sym, y_ucz);
